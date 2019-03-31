@@ -39,7 +39,7 @@
   <tr>
     <td>Страна:</td>
     <td>
-      <img src="img/<?php echo $row['country_img']; ?>" alt="<?php echo $row['country']; ?>">
+      <img src="img/<?php echo $row['country_img']; ?>" alt="<?php echo $row['country']; ?>" width="200">
     </td>
   </tr>
   <tr>

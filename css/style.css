@@ -1,0 +1,37 @@
+body {
+     padding: 0;
+     margin: 0;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 100vh;
+}
+
+#loading {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     width: 400px;
+     height: 400px;
+     outline: 2px dashed #5d5d5d;
+     outline-offset: -12px;
+     background-color: #e0f2f7;
+     font-family: 'Segoe UI';
+     color: #1f3c44;
+}
+
+#loading img {
+     width: 40%;
+     margin-bottom: 20px;
+     user-select: none;
+}
+
+#loading label {
+     font-weight: bold;
+}
+
+#loading label:hover {
+     cursor: pointer;
+     text-decoration: underline;
+}

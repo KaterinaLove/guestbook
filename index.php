@@ -9,11 +9,11 @@
 </head>
 <body>
   <h1>Гостевая книга</h1>
-  <div id="messages">
-  </div>
+  <div id="messages"></div>
+  <div id="error"></div>
   <h3>Добавить сообщение</h3>
   <!-- код формы -->
-  <form action="action.php" id="loading" method="POST" enctype="multipart/form-data">
+  <form action="" id="loading" method="POST" enctype="multipart/form-data">
     <label for="username">Имя: </label>
     <input type="text" name="username" id="username" placeholder="Ваше имя">
     <label for="email">e-mail: </label>
@@ -23,7 +23,7 @@
     <label for="country">Страна: </label>
     <input type="text" name="country" id="country" placeholder="Вашa Страна">
     <label for="country_img">Картинка страны: </label>
-    <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+    <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
     <input type="file" name="country_img" id="country_img">
     <textarea placeholder="Комментарий" name="text" id="text" required></textarea>
     <textarea placeholder="Придумайте теги" name="tags" id="tags" required></textarea>
@@ -56,7 +56,7 @@
 //отправка данных
     $(document).ready(function() {
       show_messages();
-      // контроль и отправка данных на сервер в фоновом режиме при нажатии на кнопку "отправить сообщение"
+      // Проверка заполненности фармы
       $("#loading").submit(function() {
         var name = $("#username").val();
         var text = $("#text").val();
@@ -67,9 +67,8 @@
         if (text == '') {
           alert("Заполните текст сообщения!");
           return false;
-        }  
-        // Изменить значение узла, удалив поддельный путь 
-        //inputNode.value = fileInput.value.replace("C:\\fakepath\\", "");
+        }
+        //отправка данных на сервер
         $.ajax({
           type: "POST",
           url: "action.php",
@@ -81,12 +80,18 @@
                 "&text=" +  $("#text").val() +
                 "&tags=" +  $("#tags").val(),
           enctype: 'multipart/form-data',
-          success: (function(text) {
+          headers: {
+            'X-Csrf-Token':token
+          },  // Защита от CSRF-атак
+          processData: false,  // jQuery не обрабатывать данные
+          contentType: false,  // jQuery не устанавливет тип контента
+          success: function(text) {
             show_messages();
-          }),
-          processData: false,  // tell jQuery not to process the data
-          contentType: false   // tell jQuery not to set contentType
-          });
+          },
+          error: function(xhr, status, error) {
+            alert(xhr.responseText + '|\n' + status + '|\n' +error);
+          }
+          })
         });
         return false;
     });

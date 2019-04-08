@@ -1,48 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
   <title>Гостевая книга</title>
+  <link rel="stylesheet" href="css/normaliz.css">
   <link rel="stylesheet" href="css/style.css">
-  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="js/jquery.js"></script>
   <?php include ("dbconnect.php");?>
 </head>
+
 <body>
-  <h1>Гостевая книга</h1>
+  <h1 class="headline">Гостевая книга</h1>
+  <!-- код формы -->
+  <form action="action.php" id="loading" method="POST" enctype="multipart/form-data" class="form">
+    <h3>Добавить сообщение</h3>
+    <label class="label" for="username">Ваше имя: </label>
+    <input class="form-row" type="text" name="username" id="username" placeholder="Ivan Ivanov" required>
+    <label class="label" for="email">E-mail: </label>
+    <input class="form-row" type="email" name="email" id="email" placeholder="ivanivanov@mail.ru" required>
+    <label class="label" for="homepage">Ваш сайт: </label>
+    <input class="form-row" type="text" name="homepage" id="homepage" placeholder="homepage.com">
+    <label class="label" for="country">Вашa Страна: </label>
+    <input class="form-row" type="text" name="country" id="country" placeholder="Россия" required>
+    <label id="img" class="label label-img" for="country_img">выберите картинку страны</label>
+    <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+    <input class="input-img inputfile inputfile-1" type="file" name="country_img" id="country_img" data-multiple-caption="{count} files selected" multiple required>
+    <label class="label" for="country_img">Ваше сообщение: </label>
+    <textarea class="form-row textarea" placeholder="Комментарий" name="text" id="text" required rows="5"></textarea>
+    <select class="form-row textarea" placeholder="Придумайте теги" name="tags" id="tags">
+      <option>Дом</option>
+      <option>Работа</option>
+    </select>
+    <input class="submit" id="btn" name="add" type="submit" value="Отправить сообщение">
+  </form>
   <div id="messages"></div>
   <div id="error"></div>
-  <h3>Добавить сообщение</h3>
-  <!-- код формы -->
-  <form action="" id="loading" method="POST" enctype="multipart/form-data">
-    <label for="username">Имя: </label>
-    <input type="text" name="username" id="username" placeholder="Ваше имя">
-    <label for="email">e-mail: </label>
-    <input type="email" name="email" id="email" placeholder="e-mail">
-    <label for="homepage">Домашняя страницa: </label>
-    <input type="text" name="homepage" id="homepage" placeholder="Домашняя страницa">
-    <label for="country">Страна: </label>
-    <input type="text" name="country" id="country" placeholder="Вашa Страна">
-    <label for="country_img">Картинка страны: </label>
-    <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
-    <input type="file" name="country_img" id="country_img">
-    <textarea placeholder="Комментарий" name="text" id="text" required></textarea>
-    <textarea placeholder="Придумайте теги" name="tags" id="tags" required></textarea>
-    <input id="btn" name="add" type="submit" value="Отправить сообщение">
-  </form>
   <!-- форма отправки сообщения -->
   <script>
-    //проверка заполнения формы
-    function splash() {
-      if (document.loading.username.value == '') {
-        alert("Заполните имя пользователя!");
-        return false;
-      }
-      if (document.loading.text.value == '') {
-        alert("Заполните текст сообщения!");
-        return false;
-      }
-      return true;
-    }
     // загрузка сообщений из БД в контейнер messages
     function show_messages() {
       $.ajax({
@@ -53,48 +49,44 @@
         }
       });
     }
-//отправка данных
+    //отправка данных
     $(document).ready(function() {
       show_messages();
       // Проверка заполненности фармы
       $("#loading").submit(function() {
-        var name = $("#username").val();
-        var text = $("#text").val();
-        if (name == '') {
-          alert("Заполните имя пользователя!");
-          return false;
-        }
-        if (text == '') {
-          alert("Заполните текст сообщения!");
-          return false;
-        }
         //отправка данных на сервер
         $.ajax({
           type: "POST",
           url: "action.php",
-          data: "username=" + $("#username").val() + 
-                "&email=" +  $("#email").val() +
-                "&homepage=" +  $("#homepage").val() +
-                "&country=" +  $("#country").val() +
-                "&country_img=" + $("#country_img").val() +
-                "&text=" +  $("#text").val() +
-                "&tags=" +  $("#tags").val(),
+          data: "username=" + $("#username").val() +
+            "&email=" + $("#email").val() +
+            "&homepage=" + $("#homepage").val() +
+            "&country=" + $("#country").val() +
+            "&country_img=" + $("#country_img").val() +
+            "&text=" + $("#text").val() +
+            "&tags=" + $("#tags").val(),
           enctype: 'multipart/form-data',
-          headers: {
-            'X-Csrf-Token':token
-          },  // Защита от CSRF-атак
-          processData: false,  // jQuery не обрабатывать данные
-          contentType: false,  // jQuery не устанавливет тип контента
+          processData: false, // jQuery не обрабатывать данные
+          contentType: false, // jQuery не устанавливет тип контента
           success: function(text) {
             show_messages();
           },
           error: function(xhr, status, error) {
-            alert(xhr.responseText + '|\n' + status + '|\n' +error);
+            alert(xhr.responseText + '|\n' + status + '|\n' + error);
           }
-          })
-        });
-        return false;
+        })
+      });
+      return false;
+    });
+    //стилизация input file
+    $(document).ready(function() {
+      $("#country_img").change(function() {
+        var filename = $(this).val().replace(/.*\\/, "");
+        $("#img").html(filename);
+      });
     });
   </script>
+
 </body>
+
 </html>

@@ -1,37 +1,108 @@
 body {
-     padding: 0;
-     margin: 0;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     min-height: 100vh;
+  background: #F5E9D9;
+  font-family: 'Playfair Display', sans-serif;
 }
 
-#loading {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     flex-direction: column;
-     width: 400px;
-     height: 400px;
-     outline: 2px dashed #5d5d5d;
-     outline-offset: -12px;
-     background-color: #e0f2f7;
-     font-family: 'Segoe UI';
-     color: #1f3c44;
+.form {
+  width: 70vw;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fffdee;
+  border: 10px solid transparent;
+  border-image: 10 repeating-linear-gradient(135deg, #C42061, #C42061 10px, transparent 10px, transparent 20px, #FBCFDF 20px, #FBCFDF 30px, transparent 30px, transparent 40px);
+  color: #605756;
 }
 
-#loading img {
-     width: 40%;
-     margin-bottom: 20px;
-     user-select: none;
+.headline {
+  text-align: center;
+  color: #C42061;
 }
 
-#loading label {
-     font-weight: bold;
+.form-row {
+  width: 100%;
+  display: block;
+  margin-bottom: 15px;
+  color: #000;
+  font-size: 23px;
+  font-style: italic;
+  padding: 0 5px;
+  line-height: 35px;
+  border-width: 0;
+  outline: none;
+  background: transparent url(https://html5book.ru/wp-content/uploads/2016/12/bg-form.png) bottom left repeat-x;
+  background-size: 8px 35px;
 }
 
-#loading label:hover {
-     cursor: pointer;
-     text-decoration: underline;
+.input-img {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.label-img,
+.submit {
+  display: block;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px auto;
+  padding: 10px;
+  background: #F67CA5;
+  border-width: 0;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 1.5px;
+  color: #fffdee;
+  text-transform: uppercase;
+  transition: 1s cubic-bezier(.165, .84, .44, 1);
+}
+
+.label-img:focus,
+.submit:focus {
+  outline: 1px dotted #C42061;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.textarea {
+  background-attachment: local;
+  background-repeat: repeat;
+  resize: none;
+}
+
+.form-row input[type=submit]:hover {
+  background: #C42061;
+}
+
+.wrap {
+  margin: 10px auto;
+}
+
+.pagination {
+  color: #C42061;
+  font-size: 35px;
+  text-decoration: none;
+}
+
+.message {
+  width: 80vw;
+  border: 10px solid transparent;
+  border-image: 10 repeating-linear-gradient(135deg, #C42061, #C42061 10px, transparent 10px, transparent 20px, #FBCFDF 20px, #FBCFDF 30px, transparent 30px, transparent 40px);
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.name {
+  font-size: 15px;
+  color: #605756;
+}
+
+.value {
+  font-size: 30px;
+}
+
+.mes {
+  font-size: 30px;
+  font-style: italic;
 }

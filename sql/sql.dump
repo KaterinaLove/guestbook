@@ -1,0 +1,17 @@
+CREATE SCHEMA `test` ;
+CREATE TABLE `test`.`gbook` (
+  `username` VARCHAR(62) NOT NULL,
+  `email` VARCHAR(62) NOT NULL,
+  `homepage` VARCHAR(62) NULL,
+  `country` VARCHAR(62) NOT NULL,
+  `country_img` TEXT NOT NULL,
+  `text` TEXT NOT NULL,
+  `tags` VARCHAR(45) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  PRIMARY KEY (`username`));
+  
+INSERT INTO `test`.`gbook` (`username`, `email`, `homepage`, `country`, `country_img`, `text`, `tags`, `created_at`) VALUES ('Андрей Эдуардович', 'andrey@mail.com', NULL, 'USA', '93399636.jpg', 'Hello to all! Today is a great day.', 'Дом', '2019-04-01');
+INSERT INTO `test`.`gbook` (`username`, `email`, `homepage`, `country`, `country_img`, `text`, `tags`, `created_at`) VALUES ('Екатерина', 'katerinacotn@gmail.com', 'https://katerinalove.github.io/', 'Россия', '23531948.jpg', 'Быть программистом круто!', '	
+Работа', '2019-04-08');
+INSERT INTO `test`.`gbook` (`username`, `email`, `homepage`, `country`, `country_img`, `text`, `tags`, `created_at`) VALUES ('Игорь Иваноаич', 'igor@mail.com', NULL, 'Россия', '93399636.jpg', 'Hello to all! Today is a great day.', 'Дом', '2019-03-05');
+

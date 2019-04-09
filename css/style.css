@@ -96,6 +96,7 @@ body {
 .name {
   font-size: 15px;
   color: #605756;
+  max-width: 190px;
 }
 
 .value {
